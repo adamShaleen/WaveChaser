@@ -1,0 +1,15 @@
+{
+  "name": "wavechaser",
+  "version": "1.0.0",
+  "description": "MagicSeaweed API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Adam Shaleen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
