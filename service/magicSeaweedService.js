@@ -15,20 +15,29 @@ SeaweedService.prototype.getDataByLocation = function(spotId) {
 function formatResponse(body) {
     let output = "";
     for (let index in body) {
-        output += 'timestamp: ' + body[index].timestamp + ' || swell.minBreakingHeight: ' + body[index].swell.minBreakingHeight + ' ' + body[index].swell.unit + ' || swell.maxBreakingHeight: ' + body[index].swell.maxBreakingHeight
-        + ' ' + body[index].swell.unit + ' || swell.components.combined.compassDirection: ' + body[index].swell.components.combined.compassDirection + ' || wind.speed: ' + body[index].wind.speed + ' ' + body[index].wind.unit + ' || wind.compassDirection: ' + body[index].wind.compassDirection
-        + ' || condition.temperature: ' + body[index].condition.temperature + ' ' + body[index].condition.unit + ' END TimeStamp // ';
+        output += formatDate(body[index].localTimestamp) + ' breaking ' + body[index].swell.minBreakingHeight
+        +  '-' + body[index].swell.maxBreakingHeight + body[index].swell.unit + ', swell out of the '
+        + body[index].swell.components.combined.compassDirection + ' at ' + body[index].wind.speed  + body[index].wind.unit
+        + ', wind out of the ' + body[index].wind.compassDirection + ', temp:' + body[index].condition.temperature
+        + body[index].condition.unit + "\n";
     }
 
     console.log(output);
     return body; // change to output when finished formatting
 }
 
+function formatDate(timestamp) {
+    const date = new Date(timestamp*1000);
+    const days = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
+    const day = days[date.getDay()];
+    const hour = date.getHours();
+
+    return day + ' at ' + hour + ':00';
+}
+
 module.exports = SeaweedService
 
-// Data worth returning: timestamp, swell.minBreakingheight, swell.maxBreakingHeight,
-// swell.components.compassDirection, wind.speed, wind.compassDirection, condition.temperature,
-// add image charts.swell 
+// add image charts.swell
 
 // Coos Bay spot 320
 // Gold Beach spot 321
